@@ -17,9 +17,9 @@ namespace WebApi_MIUI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-
+            //inyectar dbcontext
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            builder.Services.AddDbContext<DbAa0bbfDbveterinariaContext>(options =>
+            builder.Services.AddDbContext<DbveterinariaContext>(options =>
                                                                options.UseSqlServer(connectionString));
 
             var app = builder.Build();

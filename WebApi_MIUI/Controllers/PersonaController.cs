@@ -9,9 +9,9 @@ namespace WebApi_MIUI.Controllers
     [ApiController]
     public class PersonaController : ControllerBase
     {
-        private readonly DbAa0bbfDbveterinariaContext _context;
+        private readonly DbveterinariaContext _context;
 
-        public PersonaController(DbAa0bbfDbveterinariaContext context)
+        public PersonaController(DbveterinariaContext context)
         {
             _context = context;
         }
@@ -24,10 +24,10 @@ namespace WebApi_MIUI.Controllers
             {
                 list = _context.Personas.Where(p => p.Bhabilitado ==1).Select(a =>  new PersonaCLS
                 {
-                    IdPersona = a.Iidpersona,
-                    NombreCompleto = a.Nombre +" "+a.Appaterno+" "+a.Apmaterno,
-                    Correo = a.Correo,
-                    FechaNacimientoStr = a.Fechanacimiento == null ? "": a.Fechanacimiento.Value.ToString("dd/MMM/yy")
+                    idPersona = a.Iidpersona,
+                    nombreCompleto = a.Nombre +" "+a.Appaterno+" "+a.Apmaterno,
+                    correo = a.Correo,
+                    fechaNacimientoStr = a.Fechanacimiento == null ? "": a.Fechanacimiento.Value.ToString("dd/MMM/yy")
 
                 }).ToList();
             }
@@ -42,6 +42,59 @@ namespace WebApi_MIUI.Controllers
         }
 
 
-        
+        [HttpGet("{nombre}")]
+        public List<PersonaCLS> ListarPersona(string nombre)
+        {
+            List<PersonaCLS> list = new List<PersonaCLS>();
+            try
+            {
+                list = _context.Personas
+                    .Where(p => p.Bhabilitado == 1  && (p.Nombre + " " + p.Appaterno + " " + p.Apmaterno).Contains(nombre))
+                
+                    .Select(a => new PersonaCLS
+                {
+                    idPersona = a.Iidpersona,
+                    nombreCompleto = a.Nombre + " " + a.Appaterno + " " + a.Apmaterno,
+                    correo = a.Correo,
+                    fechaNacimientoStr = a.Fechanacimiento == null ? "" : a.Fechanacimiento.Value.ToString("dd/MMM/yy")
+
+                }).ToList();
+            }
+            catch (Exception e)
+            {
+
+                return list;
+            }
+
+            return list;
+
+        }
+
+        [HttpGet("personaid/{id:int}")]
+        public PersonaCLS RecuperarPersonaId(int id)
+        {
+            PersonaCLS persona = new PersonaCLS();
+
+            try
+            {
+                persona = _context.Personas.Where(p=> p.Iidpersona == id).Select(p => new PersonaCLS
+                {
+                    idPersona= p.Iidpersona,
+                    nombre = p.Nombre,
+                    apePaterno= p.Appaterno,
+                    apeMaterno=p.Apmaterno,
+                    fechaNacimiento = (DateTime)p.Fechanacimiento,
+                    fechaNacimientoStr = p.Fechanacimiento == null ? "" : p.Fechanacimiento.Value.ToString("yyyy-MM-dd"),
+                    correo = p.Correo
+                }).FirstOrDefault();
+
+                return persona;
+            }
+            catch (Exception e)
+            {
+
+                return persona;
+            }
+        }
     }
 }

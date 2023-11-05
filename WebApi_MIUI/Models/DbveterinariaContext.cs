@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApi_MIUI.Models;
 
-public partial class DbAa0bbfDbveterinariaContext : DbContext
+public partial class DbveterinariaContext : DbContext
 {
-    public DbAa0bbfDbveterinariaContext()
+    public DbveterinariaContext()
     {
     }
 
-    public DbAa0bbfDbveterinariaContext(DbContextOptions<DbAa0bbfDbveterinariaContext> options)
+    public DbveterinariaContext(DbContextOptions<DbveterinariaContext> options)
         : base(options)
     {
     }
@@ -45,9 +45,16 @@ public partial class DbAa0bbfDbveterinariaContext : DbContext
 
     public virtual DbSet<UsuarioMascotum> UsuarioMascota { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=SQL5073.site4now.net;database=db_aa0bbf_dbveterinaria;uid=db_aa0bbf_dbveterinaria_admin;pwd=1206Samuel");
+
+
+//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//        => optionsBuilder.UseSqlServer("Server=SQL5073.site4now.net;database=db_aa0bbf_dbveterinaria;uid=db_aa0bbf_dbveterinaria_admin;pwd=1206Samuel");
+
+
+
+
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
